@@ -1,8 +1,11 @@
 {
   "name": "node-json-config-loader",
-  "version": "0.0.8",
-  "description": "JSON Configuration File Loader for Node Js Applications. Includes an application secret loader, simply pass in a secret mapping and a value store (PROCESS_ENV, for example).",
+  "version": "0.0.9",
+  "description": "JSON Configuration File Loader for Node Js Applications. Includes an application secret loader, simply pass in a secret mapping and a value store (environment variables, for example).",
   "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/iotshaman/node-json-config-loader"
+  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
