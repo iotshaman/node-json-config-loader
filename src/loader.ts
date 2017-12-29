@@ -11,13 +11,14 @@ export class ConfigLoader {
 	}
 
 	public Initialize = () => {
+		if (!this.fs) { return Promise.reject('No file-system was provided.'); }
 		return this.loadConfigFiles(this.config.files)
 			.then(() => { return this.loadAppSecrets(this.config.secret_maps) });
 	}
 	
-	private loadConfigFiles = (list: Array<ConfigFile> = []) => {
+	private loadConfigFiles = (list: Array<ConfigFile>) => {
 		let loaders: Array<any> = [];
-		if (list.length == 0) { return Promise.resolve([]); }
+		if (list == null || list.length == 0) { return Promise.resolve([]); }
 		for (var i = 0; i < list.length; i++) {
 			loaders.push(new Promise((res) => {
 				let file: ConfigFile = list[i];
@@ -30,9 +31,9 @@ export class ConfigLoader {
 		return Promise.all(loaders);
 	}		
 
-	private loadAppSecrets = (list: Array<SecretMap> = []) => {
+	private loadAppSecrets = (list: Array<SecretMap>) => {
 		let loaders: Array<any> = [];
-		if (list.length == 0) { return Promise.resolve([]); }
+		if (list == null || list.length == 0) { return Promise.resolve([]); }
 		for (var i = 0; i < list.length; i++) {
 			loaders.push(new Promise((res) => {
 				let map: SecretMap = list[i];
@@ -50,12 +51,24 @@ export class ConfigLoader {
 		return Promise.all(loaders);
 	}
 
+	public setCahceValue = (key: string, val: any) => {
+		this.config.cache.set(key, val);
+	}
+
 	public get = (key: string) => {
 		if (this.config.cache != null) {
-			let val = this.config.cache.get(key);
-			if (val != null) return val;
-			this.config.cache.set(key, this.files[key]);
+			let val = this.getFromCache(key);
+			if (!!val) return val;
 		}
-		return this.files[key];
+
+		var rslt = this.files[key];
+		if (this.config.cache != null) { 
+			this.setCahceValue(key, rslt);
+		}
+		return rslt;
+	}
+
+	private getFromCache = (key: string) => {
+		return this.config.cache.get(key);
 	}
 }
