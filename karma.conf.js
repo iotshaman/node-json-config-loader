@@ -10,7 +10,7 @@ module.exports = function(config) {
             "**/*.ts": "karma-typescript"
         },
         reporters: ["spec"],
-        browsers: ["ChromeHeadless"],
+        browsers: ["PhantomJS"],
         singleRun: true,
         autoWatch: false
     });
