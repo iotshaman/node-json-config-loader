@@ -1,0 +1,9 @@
+# Custom Ignores #
+##################
+node_modules
+node_modules/*
+.vscode
+.vscode/*
+load-json-config-*.tgz
+dist/**/*.spec.js 
+dist/**/*.spec.js.map
