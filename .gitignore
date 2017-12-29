@@ -7,3 +7,6 @@ node_modules/*
 load-json-config-*.tgz
 dist/**/*.spec.js 
 dist/**/*.spec.js.map
+.coveralls.yml
+coverage/
+coverage/*
