@@ -76,6 +76,28 @@ describe('Configuration Loader - File Retrieval', () => {
             done();
         });
     });
+    it('Test Valid Get - File Not Found', (done) => {
+        let config: LoaderConfiguration = {
+            files: [
+                { name: 'test1', path: './test1' }
+            ]            
+        }
+        let fs: FileSystemApi = {
+            readJson: (path: string) => {
+                if (path != './test1') Promise.resolve({});
+                return new Promise((res, err) => {
+                    err({});
+                });
+            }
+        }
+        let context: ConfigLoader = new ConfigLoader(config, fs);
+        context.Initialize().then(() => {
+            var rslt = context.get('test1');
+            expect(rslt).not.toBe(null);
+            expect(rslt.val).not.toBe('value1');
+            done();
+        });
+    });
 });
 
 describe('Configuration Loader - Secret Retrieval', () => {
@@ -154,13 +176,4 @@ describe('Configuration Loader - Cache', () => {
             done();
         });
     });
-
-    // it('', (done) => {
-    //     let cache = new node_cache();
-    //     var test = cache.get('test1');
-    //     if (!!test) {
-    //         expect(1).toBe(2);
-    //     }
-    //     done();
-    // });
 });

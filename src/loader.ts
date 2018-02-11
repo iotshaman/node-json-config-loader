@@ -25,6 +25,10 @@ export class ConfigLoader {
 				this.fs.readJson(file.path).then((rslt: any) => {
 					this.files[file.name] = rslt;
 					res();
+				}).catch(() => {
+					console.log(`ConfigLoader: Cannot file config file "${file.name}"`)	
+					this.files[file.name] = {};
+					res();
 				});
 			}));
 		}

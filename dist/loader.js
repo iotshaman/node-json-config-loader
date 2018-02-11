@@ -24,6 +24,10 @@ var ConfigLoader = /** @class */ (function () {
                     _this.fs.readJson(file.path).then(function (rslt) {
                         _this.files[file.name] = rslt;
                         res();
+                    }).catch(function () {
+                        console.log("ConfigLoader: Cannot file config file \"" + file.name + "\"");
+                        _this.files[file.name] = {};
+                        res();
                     });
                 }));
             }
