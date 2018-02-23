@@ -1,6 +1,6 @@
 {
   "name": "node-json-config-loader",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JSON Configuration File Loader for Node Js Applications. Includes an application secret loader, simply pass in a secret mapping and a value store (environment variables, for example).",
   "main": "scripts/index.js",
   "repository": {

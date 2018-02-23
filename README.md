@@ -33,7 +33,7 @@ var config = {
         store: process.env
     }]
 }
-var loader = require('./index');
+var loader = require('node-json-config-loader');
 loader(config).then(function(rslt) {
     // ...
 });
