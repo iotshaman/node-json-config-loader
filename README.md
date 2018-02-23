@@ -6,14 +6,14 @@ Load multiple configurations files with one easy API. Have application secrets s
 
 ### Requirements
 
-In order to use node-json-file-tree you will need the following resource(s):
+In order to use node-json-config-loader you will need the following resource(s):
 
 - npm
 
 ### Installation
 
 ```js
-npm install node-json-file-tree --save
+npm install node-json-config-loader --save
 ```
 
 ### Quick Start
