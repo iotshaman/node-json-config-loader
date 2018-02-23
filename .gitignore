@@ -10,3 +10,6 @@ dist/**/*.spec.js.map
 .coveralls.yml
 coverage/
 coverage/*
+scripts/debug.js
+scripts/sample
+scripts/sample/*
