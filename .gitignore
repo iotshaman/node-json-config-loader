@@ -13,3 +13,4 @@ coverage/*
 scripts/debug.js
 scripts/sample
 scripts/sample/*
+.nyc_output

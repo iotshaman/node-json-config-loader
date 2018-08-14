@@ -9,29 +9,44 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
-    "test-chrome": "karma start"
+    "start": "node ./app/index.js",
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Kyle Brown",
   "license": "MIT",
   "devDependencies": {
-    "@types/jasmine": "^2.8.2",
-    "@types/node": "^8.0.53",
-    "concurrently": "^3.5.1",
-    "jasmine": "^2.8.0",
-    "jasmine-core": "^2.8.0",
-    "karma": "1.5.0",
-    "karma-coverage": "^1.1.1",
-    "karma-coveralls": "^1.1.2",
-    "karma-jasmine": "^1.1.1",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-spec-reporter": "0.0.32",
-    "karma-typescript": "^3.0.9",
+    "@types/chai": "4.1.4",
+    "@types/mocha": "5.2.5",
+    "@types/node": "10.5.8",
+    "chai": "4.1.2",
+    "coveralls": "^3.0.2",
+    "istanbul": "^0.4.5",
+    "mocha": "5.2.0",
     "node-cache": "^4.1.1",
-    "typescript": "^2.6.1"
+    "nyc": "^12.0.2",
+    "ts-node": "7.0.1",
+    "typescript": "3.0.1"
   },
   "dependencies": {
     "promise": "^8.0.1",
     "fs-extra": "^5.0.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/*.js",
+      "coverage/*",
+      "dist/*"
+    ],
+    "reporter": [
+      "html",
+      "lcov"
+    ],
+    "all": true
   }
 }

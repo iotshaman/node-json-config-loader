@@ -1,3 +1,5 @@
+import { expect, should } from 'chai';
+import 'mocha';
 import { ConfigLoader } from './loader';
 import { LoaderConfiguration } from 'loader-api';
 import { FileSystemApi } from 'file-system-api';
@@ -36,9 +38,9 @@ describe('Configuration Loader - No Data Available', () => {
         }
         let context: ConfigLoader = new ConfigLoader(config, empty_fs);
         context.Initialize().then(() => {
-            expect(context.get('')).toBe(undefined);
+            expect(context.get('')).to.equal(undefined);
             done();
-        });
+        }).catch((Ex) => { console.dir(Ex); })
     });
 
     it('Test Empty Files List', (done) => {
@@ -47,7 +49,9 @@ describe('Configuration Loader - No Data Available', () => {
         }
         let context: ConfigLoader = new ConfigLoader(config, empty_fs);
         context.Initialize().then(() => {
-            expect(context.get('')).toBe(undefined);
+            let rslt = context.get('');
+            console.dir(rslt);
+            should().equal(rslt, undefined);
             done();
         });
     });
@@ -71,8 +75,8 @@ describe('Configuration Loader - File Retrieval', () => {
         let context: ConfigLoader = new ConfigLoader(config, fs);
         context.Initialize().then(() => {
             var rslt = context.get('test1');
-            expect(rslt).not.toBe(null);
-            expect(rslt.val).toBe('value1');
+            should().not.equal(rslt, null);
+            should().equal(rslt.val, 'value1');
             done();
         });
     });
@@ -93,8 +97,8 @@ describe('Configuration Loader - File Retrieval', () => {
         let context: ConfigLoader = new ConfigLoader(config, fs);
         context.Initialize().then(() => {
             var rslt = context.get('test1');
-            expect(rslt).not.toBe(null);
-            expect(rslt.val).not.toBe('value1');
+            should().not.equal(rslt, null);
+            should().not.equal(rslt.val, 'value1');
             done();
         });
     });
@@ -126,9 +130,9 @@ describe('Configuration Loader - Secret Retrieval', () => {
         let context: ConfigLoader = new ConfigLoader(config, fs);
         context.Initialize().then(() => {
             var val = context.get('test1');
-            expect(val).not.toBe(null);
-            expect(val['key1']).toBe('value1');
-            expect(val['key2']).toBe('value2');
+            should().not.equal(val, null);
+            expect(val['key1']).to.equal('value1');
+            expect(val['key2']).to.equal('value2');
             done();
         });
     });
@@ -144,9 +148,9 @@ describe('Configuration Loader - Cache', () => {
         let context: ConfigLoader = new ConfigLoader(config, empty_fs);
         context.Initialize().then(() => {
             context.setCahceValue('test1', { val: 'value1' })
-            var val = context.get('test1');
-            expect(val).not.toBe(null);
-            expect(val.val).toBe('value1');
+            var rslt = context.get('test1');
+            should().not.equal(rslt, null);
+            expect(rslt.val).to.equal('value1');
             done();
         });
     });
@@ -171,8 +175,8 @@ describe('Configuration Loader - Cache', () => {
         context.Initialize().then(() => {
             var tmp = context.get('test1');
             var rslt = cache.get('test1');
-            expect(rslt).not.toBe(null);
-            expect(rslt.val).toBe('value1')
+            should().not.equal(rslt, null);
+            expect(rslt.val).to.equal('value1')
             done();
         });
     });
